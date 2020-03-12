@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e6a2dca09ea7a0e6ff99209"},"address":"AAA","balance":"500","transaction_list":[{"$oid":"5e6a2e7909ea7a0e6ff9920c"}]}
+{"_id":{"$oid":"5e6a2e2209ea7a0e6ff9920b"},"address":"BBB","balance":"1000","transaction_list":[{"$oid":"5e6a2e7909ea7a0e6ff9920c"}]}
+{"_id":{"$oid":"5e6a2f2009ea7a0e6ff9920f"},"address":"CCC","balance":"2000","transaction_list":[]}

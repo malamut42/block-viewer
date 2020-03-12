@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5e6a2f7c09ea7a0e6ff99211"},"block_hash":"HHH","block_number":"1","miner_address":{"$oid":"5e6a2f2009ea7a0e6ff9920f"},"nonce":{"$date":{"$numberLong":"1583960400000"}},"transactions_list":[{"$oid":"5e6a2e7909ea7a0e6ff9920c"}]}
