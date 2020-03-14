@@ -1,10 +1,20 @@
-import { Document, Schema, model, Types } from 'mongoose';
+import { Document, Schema, model, Model, Types } from 'mongoose';
 import { ITransaction } from '.';
+import { IBlock } from './block.model';
 
 export interface IAccount extends Document {
     address: String;
-    balance: String;
-    transaction_list: ITransaction[];
+    value: Number;
+    transactions: ITransactionInfo[];
+}
+
+export interface ITransactionInfo extends Document {
+    number: ITransaction['number'];
+    block_hash: IBlock['block_hash'];
+}
+
+export interface IAccountModel extends Model<IAccount> {
+    transactions: Types.Array<Model<ITransactionInfo>>;
 }
 
 const accountSchema = new Schema({
@@ -13,13 +23,16 @@ const accountSchema = new Schema({
         unique: true,
         required: true,
     },
-    balance: {
-        type: String,
+    value: {
+        type: Number,
         required: true,
     },
-    transaction_list: {
-        type: [{ type: Types.ObjectId, ref: 'Transaction' }],
-    },
+    transactions: [
+        new Schema({
+            number: Number,
+            block_hash: String,
+        }),
+    ],
 });
 
-export default model<IAccount>('Account', accountSchema);
+export default model<IAccount, IAccountModel>('Account', accountSchema);

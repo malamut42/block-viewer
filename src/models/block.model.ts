@@ -1,14 +1,17 @@
-import { Schema, Document, model, Types } from 'mongoose';
+import { Schema, Document, model, Types, Model } from 'mongoose';
 import { ITransaction } from './transaction.model';
-import { IAccount } from './account.model';
 
 export interface IBlock extends Document {
     block_hash: String;
-    block_number: String;
-    miner_address: IAccount;
-    nonce: Date;
-    transactions_list: ITransaction[];
+    depth: Number;
+    timestamp: String;
+    coinbase: String;
+    previous_block_hash: String;
+    number_of_transactions: Number;
+    transactions: ITransaction[];
 }
+
+export interface IBlockModel extends Model<IBlock> {}
 
 const blockSchema = new Schema({
     block_hash: {
@@ -18,20 +21,27 @@ const blockSchema = new Schema({
         minlength: 45,
         maxlength: 55,
     },
-    block_number: {
+    depth: {
+        type: Number,
+        required: true,
+    },
+    timestamp: {
         type: String,
         required: true,
-        unique: true,
     },
-    miner_address: {
-        type: Types.ObjectId,
-        ref: 'Account',
-    },
-    nonce: {
-        type: Date,
+    coinbase: {
+        type: String,
         required: true,
     },
-    transactions_list: [{ type: Types.ObjectId, ref: 'Transaction' }],
+    previous_block_hash: {
+        type: String,
+        required: true,
+    },
+    number_of_transactions: {
+        type: Number,
+        required: true,
+    },
+    transactions: [{ type: Types.ObjectId, ref: 'Transaction' }],
 });
 
-export default model<IBlock>('Block', blockSchema);
+export default model<IBlock, IBlockModel>('Block', blockSchema);

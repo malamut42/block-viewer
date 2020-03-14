@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "node -r dotenv/config dist/src/app.js",
     "dev": "nodemon",
     "build": "tsc"
   },
@@ -30,6 +30,7 @@
     "@types/express": "^4.17.3",
     "@types/mongoose": "^5.7.3",
     "@types/node": "^13.9.0",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
@@ -39,6 +40,11 @@
       "src"
     ],
     "ext": "ts",
-    "exec": "ts-node ./src/app.ts"
+    "exec": "ts-node ./src/app.ts",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": "9001",
+      "DB": "mongodb://localhost:27017/BCExplorer"
+    }
   }
 }

@@ -1,38 +1,57 @@
-import { Document, Schema, model, Types } from 'mongoose';
-import { IAccount } from './account.model';
+import { Document, Schema, model, Model } from 'mongoose';
 
 export interface ITransaction extends Document {
-    hash: String;
-    from_address: IAccount;
-    to_address: IAccount;
-    amount: String;
-    fee: String;
+    number: Number;
+    type: String;
+    from: String;
+    to: String;
+    value: Number;
+    fee: Number;
+    timestamp: String;
+    data: String;
+    signature: Boolean;
 }
 
+export interface ITransactionModel extends Model<ITransaction> {}
+
 const transactionSchema = new Schema({
-    hash: {
-        type: String,
+    number: {
+        type: Number,
         required: true,
         unique: true,
-        minlength: 45,
-        maxlength: 55,
     },
-    from_address: {
-        type: Types.ObjectId,
-        ref: 'Account',
-    },
-    to_address: {
-        type: Types.ObjectId,
-        ref: 'Account',
-    },
-    amount: {
+    type: {
         type: String,
+        required: true,
+    },
+    from: {
+        type: String,
+        required: true,
+    },
+    to: {
+        type: String,
+        required: true,
+    },
+    value: {
+        type: Number,
         required: true,
     },
     fee: {
+        type: Number,
+        required: true,
+    },
+    timestamp: {
         type: String,
+        required: true,
+    },
+    data: {
+        type: String,
+        required: true,
+    },
+    signature: {
+        type: Boolean,
         required: true,
     },
 });
 
-export default model<ITransaction>('Transaction', transactionSchema);
+export default model<ITransaction, ITransactionModel>('Transaction', transactionSchema);
